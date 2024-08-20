@@ -35,3 +35,15 @@ function jump() {
         }
     }, 20);
 }
+
+function moveObstacle() {
+    let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
+    if (obstacleRight > 800) {
+        // Reset obstacle position and increase score
+        obstacle.style.right = '0px';
+        score++;
+        scoreElement.textContent = score;
+    } else {
+
+    }
+}
