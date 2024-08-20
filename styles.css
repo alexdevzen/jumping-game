@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+#game-container {
+    width: 800px;
+    height: 200px;
+    background-color: #fff;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+#character {
+    width: 40px;
+    height: 40px;
+    background-color: blue;
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+}
+
+#obstacle {
+    width: 20px;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#game-controls,
+#game-stats {
+    margin-top: 10px;
+}
+
+footer {
+    margin-top: 20px;
+    color: #666;
+}
