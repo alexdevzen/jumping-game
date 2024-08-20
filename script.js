@@ -49,6 +49,21 @@ function moveObstacle() {
     }
 }
 
+//Function to detect collisions
+function checkCollision() {
+    let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue('top'));
+    let obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
+    let characterRight = parseInt(window.getComputedStyle(character).getPropertyValue('left')) + 40;
+
+    //check collision
+    if (characterRight > obstacleLeft && characterTop >= 160) {
+        alert('Game Over! Your score: ' + score);
+        //reset game
+        score = 0;
+        scoreElement.textContent = score;
+        obstacle.style.right = 'opx';
+    }
+}
 
 //Listener spacebar press
 document.addEventListener('keydown', (event) => {
@@ -57,7 +72,7 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-
+//Loop
 setInterval(() => {
     moveObstacle();
 
