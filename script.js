@@ -48,3 +48,17 @@ function moveObstacle() {
         obstacle.style.right = (obstacleRight + 5) + 'px';
     }
 }
+
+
+//Listener spacebar press
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        jump();
+    }
+});
+
+
+setInterval(() => {
+    moveObstacle();
+
+}, 20);
