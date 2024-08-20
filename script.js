@@ -44,6 +44,7 @@ function moveObstacle() {
         score++;
         scoreElement.textContent = score;
     } else {
-
+        // move obstacle to the left
+        obstacle.style.right = (obstacleRight + 5) + 'px';
     }
 }
