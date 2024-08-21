@@ -51,7 +51,7 @@ function createObstacles() {
       obstacle.classList.add('obstacle');
       obstacle.style.background = "black";
       obstacle.style.right = `${i * 300}px`; // Position obstacles with some spacing
-      obstacle.style.bottom = '0px'; // Set obstacle position from the bottom
+      obstacle.style.bottom = '0px';
       gameContainer.appendChild(obstacle);
       obstacles.push(obstacle);
       
