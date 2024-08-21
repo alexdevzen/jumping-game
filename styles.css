@@ -34,7 +34,7 @@ h1 {
     left: 50px;
 }
 
-#obstacle {
+.obstacle {
     width: 20px;
     height: 40px;
     background-color: red;
