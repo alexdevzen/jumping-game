@@ -11,9 +11,9 @@ const startButton = document.getElementById('start-button');
 let isJumping = false;
 let score = 0;
 let obstacles = [];
-let obstacleStartPositions = []; // To keep track of initial positions
 let isGameRunning = false;
 let gameInterval;
+let obstacleInterval;
 
 // Function to start the game
 function startGame() {
@@ -22,11 +22,28 @@ function startGame() {
     score = 0;
     scoreElement.textContent = score;
     startButton.disabled = true;
-    createObstacles();
-    gameInterval = setInterval(() => {
-        moveObstacles();
-        checkCollisions();
-    }, 20);
+    obstacles = [];
+    obstaclesContainer.innerHTML = '';
+    gameInterval = setInterval(gameLoop, 20);
+    scheduleNextObstacle();
+}
+
+// Main game loop
+function gameLoop() {
+    moveObstacles();
+    checkCollisions();
+}
+
+// Function to schedule the next obstacle
+function scheduleNextObstacle() {
+    if (!isGameRunning) return;
+    const minDelay = 1000; // Minimum delay of 1 second
+    const maxDelay = 3000; // Maximum delay of 3 seconds
+    const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+    obstacleInterval = setTimeout(() => {
+        createObstacle();
+        scheduleNextObstacle();
+    }, delay);
 }
 
 // Function character jump
@@ -57,50 +74,45 @@ function jump() {
 }
 
 // Function: Create Obstacle
-function createObstacles() {
-    // Clear existing obstacles
-    obstacles.forEach(obstacle => obstaclesContainer.removeChild(obstacle));
-    obstacles = [];
-    obstacleStartPositions = []; // Reset positions
-
-    for (let i = 0; i < 3; i++) {
-        const obstacle = document.createElement('div');
-        obstacle.classList.add('obstacle');
-        obstacle.style.right = `${500 + (i * 300)}px`; // Position obstacles offscreen initially
-        obstacle.style.bottom = '0px';
-        obstaclesContainer.appendChild(obstacle);
-        obstacles.push(obstacle);
-
-        // Record initial positions for later checks
-        let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
-        obstacleStartPositions.push(obstacleRight);
-    }
+function createObstacle() {
+    const gameWidth = 800; // Width of the game container
+    const obstacle = document.createElement('div');
+    obstacle.classList.add('obstacle');
+    obstacle.style.left = `${gameWidth}px`;
+    obstacle.style.bottom = '0px';
+    obstacle.dataset.passed = 'false';
+    obstaclesContainer.appendChild(obstacle);
+    obstacles.push(obstacle);
 }
 
-// Move the obstacle
+// Move the obstacles
 
-/* This function moves the obstacle from right to left and resets its position when it leaves the screen. */
+/* This function moves the obstacles from right to left and removes them when they leave the screen. */
 function moveObstacles() {
     obstacles.forEach((obstacle, index) => {
-        let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
+        let obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
 
-        if (obstacleRight > 800) {
-            // Reset position and increase score only if it was not already reset
-            obstacle.style.right = '0px';
-            if (obstacleRight > obstacleStartPositions[index]) { // Ensure score increments only when passing obstacles
-                score++;
-                scoreElement.textContent = score;
-            }
+        if (obstacleLeft <= -20) {
+            // Remove obstacle that has left the screen
+            obstaclesContainer.removeChild(obstacle);
+            obstacles.splice(index, 1);
         } else {
             // Move obstacle to the left
-            obstacle.style.right = (obstacleRight + 5) + 'px';
+            obstacle.style.left = (obstacleLeft - 5) + 'px';
+
+            // Check if the obstacle has passed the character and hasn't been counted yet
+            if (obstacleLeft < 50 && obstacle.dataset.passed === 'false') {
+                score++;
+                scoreElement.textContent = score;
+                obstacle.dataset.passed = 'true'; // Mark the obstacle as passed
+            }
         }
     });
 }
 
 // Detect collisions
 
-/* Check if the character has collided with the obstacle. */
+/* Check if the character has collided with any obstacle. */
 function checkCollisions() {
     obstacles.forEach(obstacle => {
         let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue('bottom'));
@@ -118,22 +130,13 @@ function checkCollisions() {
     });
 }
 
-function resetObstacles() {
-    obstacles.forEach((obstacle, index) => {
-        // Reset each obstacle to a different starting position with spacing
-        obstacle.style.right = `${index * 400}px`;
-    });
-}
-
 // Function to end the game
 function endGame() {
     clearInterval(gameInterval);
+    clearTimeout(obstacleInterval);
     isGameRunning = false;
     startButton.disabled = false;
     alert('Game Over! Your score: ' + score);
-    score = 0;
-    scoreElement.textContent = score;
-    resetObstacles();
 }
 
 // Event listener for spacebar press
@@ -152,7 +155,7 @@ startButton.addEventListener('click', startGame);
 
 - The game starts when the player clicks the "Start Game" button.
 - The character is in a fixed position horizontally.
-- Obstacles move from right to left.
+- Obstacles appear from the right at random intervals and move to the left.
 - The player can make the character jump with the space bar.
 - If the character hits an obstacle, the game ends.
 - The score increases each time an obstacle is completely passed.
