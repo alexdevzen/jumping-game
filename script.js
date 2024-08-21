@@ -12,7 +12,6 @@ let score = 0;
 let obstacles = [];
 let isGameRunning = false;
 let gameInterval;
-let obstacleInterval;
 
 // Function to start the game
 function startGame() {
@@ -21,28 +20,11 @@ function startGame() {
     score = 0;
     scoreElement.textContent = score;
     startButton.disabled = true;
-    obstacles = [];
-    obstaclesContainer.innerHTML = '';
-    gameInterval = setInterval(gameLoop, 20);
-    scheduleNextObstacle();
-}
-
-// Main game loop
-function gameLoop() {
-    moveObstacles();
-    checkCollisions();
-}
-
-// Function to schedule the next obstacle
-function scheduleNextObstacle() {
-    if (!isGameRunning) return;
-    const minDelay = 1000; // Minimum delay of 1 second
-    const maxDelay = 3000; // Maximum delay of 3 seconds
-    const delay = Math.random() * (maxDelay - minDelay) + minDelay;
-    obstacleInterval = setTimeout(() => {
-        createObstacle();
-        scheduleNextObstacle();
-    }, delay);
+    createObstacles();
+    gameInterval = setInterval(() => {
+        moveObstacles();
+        checkCollisions();
+    }, 20);
 }
 
 // Function character jump
@@ -75,9 +57,9 @@ function createObstacles() {
     }
 }
 
-// Move the obstacles
+// Move the obstacle
 
-/* This function moves the obstacles from right to left and removes them when they leave the screen. */
+/* This function moves the obstacle from right to left and resets its position when it leaves the screen. */
 function moveObstacles() {
     obstacles.forEach((obstacle, index) => {
         let obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
@@ -96,7 +78,7 @@ function moveObstacles() {
 
 // Detect collisions
 
-/* Check if the character has collided with any obstacle. */
+/* Check if the character has collided with the obstacle. */
 function checkCollisions() {
     obstacles.forEach(obstacle => {
         let characterRect = character.getBoundingClientRect();
@@ -116,7 +98,6 @@ function checkCollisions() {
 // Function to end the game
 function endGame() {
     clearInterval(gameInterval);
-    clearTimeout(obstacleInterval);
     isGameRunning = false;
     startButton.disabled = false;
     alert('Game Over! Your score: ' + score);
@@ -138,6 +119,8 @@ startButton.addEventListener('click', startGame);
 /* The game works like this:
 
 - The game starts when the player clicks the "Start Game" button.
+- The character is in a fixed position horizontally and appears to be running due to the GIF animation.
+- Obstacles move from right to left.
 - The player can make the character jump with the space bar.
 - If the character hits an obstacle, the game ends.
 - The score increases each time an obstacle is completely passed.
