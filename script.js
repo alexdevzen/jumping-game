@@ -13,7 +13,6 @@ let obstacleStartPositions = []; // To keep track of initial positions
 
 
 // Function character jump
-
 /* This function handles the character's jumping. Use setInterval to animate the jump in small increments. */
 function jump() {
   if (isJumping) return;
