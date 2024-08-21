@@ -1,5 +1,4 @@
 //  DOM elements
-
 /* Here we get references to DOM elements and set initial state variables. */
 const character = document.getElementById('character');
 const gameContainer = document.getElementById('game-container');
