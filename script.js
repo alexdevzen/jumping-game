@@ -66,14 +66,13 @@ function createObstacles() {
     for (let i = 0; i < 3; i++) {
         const obstacle = document.createElement('div');
         obstacle.classList.add('obstacle');
-        obstacle.style.right = `${500 + (i * 300)}px`; // Position obstacles offscreen initially
+        obstacle.style.right = `${800 + (i * 300)}px`; // Position all obstacles offscreen initially
         obstacle.style.bottom = '0px';
         obstaclesContainer.appendChild(obstacle);
         obstacles.push(obstacle);
 
         // Record initial positions for later checks
-        let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
-        obstacleStartPositions.push(obstacleRight);
+        obstacleStartPositions.push(false); // Use boolean to track if obstacle has entered screen
     }
 }
 
@@ -85,9 +84,15 @@ function moveObstacles() {
         let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
 
         if (obstacleRight > 800) {
-            // Reset position and increase score only if it was not already reset
+            // Mark that the obstacle has entered the screen
+            obstacleStartPositions[index] = true;
+        }
+
+        if (obstacleRight > 820) { // Fully passed the screen width (800px) plus obstacle width (20px)
+            // Reset position
             obstacle.style.right = '0px';
-            if (obstacleRight > obstacleStartPositions[index]) { // Ensure score increments only when passing obstacles
+            // Increase score only if the obstacle had entered the screen before
+            if (obstacleStartPositions[index]) {
                 score++;
                 scoreElement.textContent = score;
             }
@@ -121,7 +126,8 @@ function checkCollisions() {
 function resetObstacles() {
     obstacles.forEach((obstacle, index) => {
         // Reset each obstacle to a different starting position with spacing
-        obstacle.style.right = `${index * 400}px`;
+        obstacle.style.right = `${800 + (index * 300)}px`;
+        obstacleStartPositions[index] = false;
     });
 }
 
