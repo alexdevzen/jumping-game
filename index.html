@@ -4,35 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Jumping Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header>Jumping Game</header>
-    <main>
+    <header>
+        <h1>Jumping Game</h1>
+    </header>
 
+    <main>
+        <!-- Game container with character and obstacle -->
         <div id="game-container">
-            <!-- representing the playable character -->
             <div id="character"></div>
-            <!-- representing the obstacle -->
             <div id="obstacle"></div>
         </div>
 
-        <section id="game-controls">
+        <!-- Game controls section -->
+        <div id="game-controls" class="section">
+            <button id="start-button">Start Game</button>
             <p>Press space to jump</p>
-        </section>
+        </div>
 
-        <section id="game-stats">
-            <p>Score:<span id="score">0</span></p>
-        </section>
-
+        <!-- Game stats section -->
+        <div id="game-stats" class="section">
+            Score: <span id="score">0</span>
+        </div>
     </main>
 
     <footer>
-        <p>Assignment 3 - Part 2</p>
+        Assignment 3 - Part 2
     </footer>
-    <!-- Link to script file -->
+
     <script src="script.js"></script>
 </body>
 

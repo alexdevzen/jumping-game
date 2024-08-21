@@ -4,17 +4,33 @@
 const character = document.getElementById('character');
 const obstacle = document.getElementById('obstacle');
 const scoreElement = document.getElementById('score');
+const startButton = document.getElementById('start-button');
 
-//  state variables
+//  State variables
 let isJumping = false;
 let score = 0;
+let gameInterval;
+let isGameRunning = false;
 
+// Function to start the game
+function startGame() {
+    if (isGameRunning) return;
+    isGameRunning = true;
+    score = 0;
+    scoreElement.textContent = score;
+    obstacle.style.right = '0px';
+    startButton.disabled = true;
+    gameInterval = setInterval(() => {
+        moveObstacle();
+        checkCollision();
+    }, 20);
+}
 
 // Function character jump
 
 /* This function handles the character's jumping. Use setInterval to animate the jump in small increments. */
 function jump() {
-    if (isJumping) return;
+    if (isJumping || !isGameRunning) return;
     isJumping = true;
     let jumpCount = 0;
     let jumpInterval = setInterval(() => {
@@ -57,8 +73,6 @@ function moveObstacle() {
     }
 }
 
-
-
 // Detect collisions
 
 /* Check if the character has collided with the obstacle. */
@@ -69,16 +83,17 @@ function checkCollision() {
 
     // Check if there's a collision
     if (characterRight > obstacleLeft && characterTop >= 160) {
-        alert('Game Over! Your score: ' + score);
-        // Reset the game
-        score = 0;
-        scoreElement.textContent = score;
-        obstacle.style.right = '0px';
+        endGame();
     }
 }
 
-
-
+// Function to end the game
+function endGame() {
+    clearInterval(gameInterval);
+    isGameRunning = false;
+    startButton.disabled = false;
+    alert('Game Over! Your score: ' + score);
+}
 
 // Event listener for spacebar press
 
@@ -89,14 +104,8 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Main loop
-
-/* This interval executes the movement and collision functions every 20 milliseconds, creating the game's animation. */
-setInterval(() => {
-    moveObstacle();
-    checkCollision();
-}, 20);
-
+// Event listener for start button
+startButton.addEventListener('click', startGame);
 
 /* The game works like this:
 
@@ -104,4 +113,6 @@ setInterval(() => {
 - Obstacles move from right to left.
 - The player can make the character jump with the space bar.
 - If the character hits an obstacle, the game ends.
-- The score increases each time an obstacle is completely passed. */
+- The score increases each time an obstacle is completely passed. 
+- The game starts when the player clicks the "Start Game" button.
+- The game can be restarted after it ends by clicking the "Start Game" button again. */
