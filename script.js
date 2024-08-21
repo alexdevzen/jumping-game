@@ -4,6 +4,7 @@
 const character = document.getElementById('character');
 const gameContainer = document.getElementById('game-container');
 const scoreElement = document.getElementById('score');
+const obstaclesContainer = document.getElementById('obstacles-container');
 
 //  state variables
 let isJumping = false;
@@ -13,6 +14,7 @@ let obstacleStartPositions = []; // To keep track of initial positions
 
 
 // Function character jump
+
 /* This function handles the character's jumping. Use setInterval to animate the jump in small increments. */
 function jump() {
   if (isJumping) return;
@@ -41,25 +43,23 @@ function jump() {
 // Function: Create Obstacle
 function createObstacles() {
   // Clear existing obstacles
-  obstacles.forEach(obstacle => gameContainer.removeChild(obstacle));
+  obstacles.forEach(obstacle => obstaclesContainer.removeChild(obstacle));
   obstacles = [];
   obstacleStartPositions = []; // Reset positions
 
   for (let i = 0; i < 3; i++) {
       const obstacle = document.createElement('div');
       obstacle.classList.add('obstacle');
-      obstacle.style.background = "black";
-      obstacle.style.right = `${i * 300}px`; // Position obstacles with some spacing
+      obstacle.style.right = `${500 + (i * 300)}px`; // Position obstacles offscreen initially
       obstacle.style.bottom = '0px';
-      gameContainer.appendChild(obstacle);
+      obstaclesContainer.appendChild(obstacle);
       obstacles.push(obstacle);
-      
+
       // Record initial positions for later checks
       let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
       obstacleStartPositions.push(obstacleRight);
   }
 }
-
 // Move the obstacle
 
 /* This function moves the obstacle from right to left and resets its position when it leaves the screen. */
