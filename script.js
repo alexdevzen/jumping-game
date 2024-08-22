@@ -14,6 +14,9 @@ let obstacles = [];
 let isGameRunning = false;
 let gameInterval;
 
+// Add a universal touch event listener
+window.addEventListener('touchstart', handleTouchStart);
+
 // Function to start the game
 function startGame() {
   if (isGameRunning) return;
@@ -138,12 +141,13 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-// for small screens
-if (body.clientWidth <= 800) {
-  window.addEventListener("click", (event) => {
-    event.preventDefault(); // Prevent default spacebar behavior
+// Function to handle touch events
+function handleTouchStart(event) {
+  // Prevent default behavior on touch only if the game is running
+  if (isGameRunning) {
+    event.preventDefault();
     jump();
-  });
+  }
 }
 
 // Event listener for start button
