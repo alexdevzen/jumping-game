@@ -1,82 +1,82 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #1e2a5e;
-    margin: 0;
-    padding: 20px;
-    color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e2a5e;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
 }
 
 header {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 h1 {
-    color: #333;
+  color: #333;
 }
 
 #game-container {
-    width: 800px;
-    height: 200px;
-    background-color: #ffffff;
-    border: 2px solid #fff;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
+  width: 800px;
+  height: 200px;
+  background-color: #ffffff;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
 }
 
 #character {
-    width: 50px;
-    height: 50px;
-    background-image: url('./images/runner.gif');
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: absolute;
-    bottom: 0;
-    left: 50px;
-    transition: transform 0.3s ease-out;
+  width: 50px;
+  height: 50px;
+  background-image: url('./images/runner-start.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  transition: transform 0.3s ease-out;
 }
 
 #character.jumping {
-    transform: translateY(-100px);
+  transform: translateY(-100px);
 }
 
 .obstacle {
-    width: 20px;
-    height: 40px;
-    background-color: #7c93c3;
-    position: absolute;
-    bottom: 0;
+  width: 20px;
+  height: 40px;
+  background-color: #7c93c3;
+  position: absolute;
+  bottom: 0;
 }
 
 #game-controls,
 #game-stats {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 /* Start button styles */
 #start-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 #start-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 #start-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 footer {
-    margin-top: 20px;
-    color: #c1c1c1;
+  margin-top: 20px;
+  color: #c1c1c1;
 }
