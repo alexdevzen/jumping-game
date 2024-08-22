@@ -5,7 +5,7 @@ body {
   align-items: center;
   background-color: #1e2a5e;
   margin: 0;
-  padding: 20px;
+  padding: 20px 0;
   color: #fff;
 }
 
@@ -56,15 +56,39 @@ h1 {
   margin-top: 10px;
 }
 
+#game-stats {
+  color: #000;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 18px;
+}
+
+#game-controls {
+  display: flex;
+  align-items: center;
+}
+
+.big-screen {
+  display: block;
+  margin: 0;
+  font-size: 18px;
+}
+
+.small-screen {
+  display: none;
+  font-size: 18px;
+}
+
 /* Start button styles */
 #start-button {
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #4caf50;
   color: white;
   border: none;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 #start-button:hover {
@@ -79,4 +103,43 @@ h1 {
 footer {
   margin-top: 20px;
   color: #c1c1c1;
+}
+
+
+@media (max-width: 800px) {
+  body {
+    justify-content: center;
+    height: 100vw;
+  }
+  main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  #character {
+    width: 60px;
+    height: 60px;
+  }
+
+  #game-container {
+    width: 99%;
+    margin: 10px 0;
+    border-radius: 0;
+  }
+
+  #game-controls {
+    flex-direction: column;
+  }
+
+  .big-screen {
+    display: none;
+  }
+
+  .small-screen {
+    margin-bottom: 30px;
+    display: block;
+  }
 }

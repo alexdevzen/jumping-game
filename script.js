@@ -5,6 +5,7 @@ const gameContainer = document.getElementById('game-container');
 const scoreElement = document.getElementById('score');
 const obstaclesContainer = document.getElementById('obstacles-container');
 const startButton = document.getElementById('start-button');
+const body = document.body;
 
 //  state variables
 let isJumping = false;
@@ -136,6 +137,14 @@ document.addEventListener('keydown', (event) => {
     jump();
   }
 });
+
+// for small screens
+if (body.clientWidth <= 800) {
+  window.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent default spacebar behavior
+    jump();
+  });
+}
 
 // Event listener for start button
 startButton.addEventListener('click', startGame);

@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumping Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jumping Game</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div>
-        Jumping Game
-    </div>
-
-    <main role="main">
-        <div id="game-container" class="section">
-            <div id="character"></div>
-            <div id="obstacles-container"></div>
-        </div>
-
-        <div id="game-controls">
-            <button id="start-button">Start Game</button>
-            Press space to jump
-        </div>
-
-        <div id="game-stats">
-            Score: <span id="score">0</span>
-        </div>
-    </main>
-
-    <footer>
-        Assignment 3 - Part 2
-    </footer>
-
-    <script src="script.js"></script>
+  <h2>Jumping Game</h2>
+  <main role="main">
+    <section id="game-container" class="section">
+      <p id="game-stats">
+        Score: <span id="score">0</span>
+      </p>
+      <div id="character"></div>
+      <div id="obstacles-container"></div>
+    </section>
+    <section id="game-controls">
+      <button id="start-button">Start Game</button>
+      <p class="big-screen">Press space to jump</p>
+      <p class="small-screen">Press anything to jump</p>
+    </section>
+  </main>
+  <footer>
+    <h3>Assignment 3 - Part 2</h3>
+  </footer>
+  <script src="script.js"></script>
 </body>
-
 </html>
