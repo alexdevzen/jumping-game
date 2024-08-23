@@ -14,6 +14,10 @@ let obstacles = [];
 let isGameRunning = false;
 let gameInterval;
 
+// Audio elements
+const jumpSound = new Audio('./sounds/jump-sound.mp3');
+const hitSound = new Audio('./sounds/hit-sound.mp3');
+
 // Add a universal touch event listener
 window.addEventListener('touchstart', handleTouchStart);
 
@@ -42,6 +46,11 @@ function jump() {
   if (isJumping || !isGameRunning) return;
   isJumping = true;
   character.classList.add('jumping');
+
+  // Play jump sound
+  jumpSound.currentTime = 0; // Reset sound to start
+  jumpSound.play();
+
   // Switch to the static "jump" image on jumping
   character.style.backgroundImage = "url('./images/runner-jump.png')";
   setTimeout(() => {
@@ -108,6 +117,9 @@ function checkCollisions() {
       characterRect.bottom > obstacleRect.top + collisionMargin &&
       characterRect.top < obstacleRect.bottom - collisionMargin
     ) {
+      // Play hit sound
+      hitSound.currentTime = 0; // Reset sound to start
+      hitSound.play();
       // Switch to the static "hit" image on collision
       if (isGameRunning) {
         character.style.backgroundImage = "url('./images/runner-hit.png')";
