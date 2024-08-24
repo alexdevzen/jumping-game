@@ -1,3 +1,4 @@
+/* Body styles */
 body {
   font-family: Arial, sans-serif;
   display: flex;
@@ -8,22 +9,20 @@ body {
   padding: 20px 0;
   color: #fff;
   min-height: 100vh;
-  /* Ensures the body takes at least the full height of the viewport */
 }
 
+/* Sticky header */
 header {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
-  /* Semi-transparent background */
   padding: 10px 0;
   margin-bottom: 20px;
   position: sticky;
-  /* Makes the header stay at the top */
   top: 0;
   z-index: 1000;
-  /* Ensures the header is above other elements */
 }
 
+/* Headings */
 h2 {
   margin: 0;
   padding: 10px 0;
@@ -34,6 +33,7 @@ h1 {
   color: #333;
 }
 
+/* Game container */
 #game-container {
   width: 800px;
   height: 200px;
@@ -44,6 +44,7 @@ h1 {
   overflow: hidden;
 }
 
+/* Character styles */
 #character {
   width: 50px;
   height: 50px;
@@ -60,6 +61,7 @@ h1 {
   transform: translateY(-100px);
 }
 
+/* Obstacle styles */
 .obstacle {
   width: 20px;
   height: 40px;
@@ -68,6 +70,7 @@ h1 {
   bottom: 0;
 }
 
+/* Game controls and stats */
 #game-controls,
 #game-stats {
   margin-top: 10px;
@@ -87,6 +90,7 @@ h1 {
   margin-top: 30px;
 }
 
+/* Screen-specific text */
 .big-screen {
   display: block;
   margin: 0;
@@ -98,7 +102,7 @@ h1 {
   font-size: 18px;
 }
 
-/* Enhanced Start button styles */
+/* Start button styles */
 #start-button {
   padding: 10px 20px;
   font-size: 18px;
@@ -133,19 +137,18 @@ h1 {
   transform: none;
 }
 
+/* Footer */
 footer {
   margin-top: 20px;
   color: #c1c1c1;
 }
 
+/* Mobile styles */
 @media (max-width: 800px) {
   body {
     justify-content: flex-start;
-    /* Changed from center to flex-start */
     height: auto;
-    /* Changed from 100vw to auto */
     padding-top: 0;
-    /* Removes top padding on mobile devices */
   }
 
   header {
@@ -154,7 +157,6 @@ footer {
 
   h2 {
     font-size: 1.5em;
-    /* Reduces title size on small screens */
   }
 
   main {
