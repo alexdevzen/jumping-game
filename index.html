@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jumping Game</title>
+  <link rel="icon" type="image/svg+xml" href="./images/favicon.ico">
   <link rel="stylesheet" href="styles.css">
+  <title>Jumping Game</title>
 </head>
+
 <body>
   <h2>Jumping Game</h2>
   <main role="main">
+    <!-- Game area -->
     <section id="game-container" class="section">
+      <!-- Score display -->
       <p id="game-stats">
         Score: <span id="score">0</span>
       </p>
+      <!-- Player character -->
       <div id="character"></div>
+      <!-- Obstacles container -->
       <div id="obstacles-container"></div>
     </section>
+    <!-- Game controls -->
     <section id="game-controls">
       <button id="start-button">Start Game</button>
       <p class="big-screen">Press space to jump</p>
@@ -25,6 +33,8 @@
   <footer>
     <h3>Assignment 3 - Part 2</h3>
   </footer>
+  <!-- Game logic -->
   <script src="script.js"></script>
 </body>
+
 </html>
