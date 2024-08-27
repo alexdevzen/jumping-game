@@ -1,6 +1,5 @@
 // DOM elements
 const character = document.getElementById('character');
-const gameContainer = document.getElementById('game-container');
 const scoreElement = document.getElementById('score');
 const obstaclesContainer = document.getElementById('obstacles-container');
 const startButton = document.getElementById('start-button');
@@ -17,12 +16,11 @@ let obstacles = [];
 let isGameRunning = false;
 let gameInterval;
 let canJump = true;
-let jumpCooldown = 500; // Tiempo de espera en milisegundos entre saltos
+let jumpCooldown = 500; // Timeout in milliseconds between hops
 
 // Event listeners
 window.addEventListener('touchstart', handleTouchStart);
 document.addEventListener('keydown', handleKeyDown);
-document.addEventListener('keyup', handleKeyUp);
 startButton.addEventListener('click', startGame);
 
 // Function to start the game
@@ -59,13 +57,6 @@ function handleKeyDown(event) {
   if (event.code === 'Space') {
     event.preventDefault();
     tryJump();
-  }
-}
-
-// Function to handle key release events
-function handleKeyUp(event) {
-  if (event.code === 'Space') {
-    // No action needed here
   }
 }
 
