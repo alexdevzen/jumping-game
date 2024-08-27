@@ -11,14 +11,18 @@ const hitSound = new Audio('./sounds/hit-sound.mp3');
 
 // State variables
 let isJumping = false;
+let isFalling = false;
 let score = 0;
 let obstacles = [];
 let isGameRunning = false;
 let gameInterval;
+let canJump = true;
+let jumpCooldown = 500; // Tiempo de espera en milisegundos entre saltos
 
 // Event listeners
 window.addEventListener('touchstart', handleTouchStart);
-document.addEventListener('keydown', handleKeyPress);
+document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
 startButton.addEventListener('click', startGame);
 
 // Function to start the game
@@ -43,16 +47,25 @@ function gameLoop() {
 function resetGame() {
   isGameRunning = true;
   isJumping = false;
+  isFalling = false;
+  canJump = true;
   score = 0;
   scoreElement.textContent = score;
   clearObstacles();
 }
 
 // Function to handle key press events
-function handleKeyPress(event) {
+function handleKeyDown(event) {
   if (event.code === 'Space') {
     event.preventDefault();
-    jump();
+    tryJump();
+  }
+}
+
+// Function to handle key release events
+function handleKeyUp(event) {
+  if (event.code === 'Space') {
+    // No action needed here
   }
 }
 
@@ -60,26 +73,45 @@ function handleKeyPress(event) {
 function handleTouchStart(event) {
   if (isGameRunning) {
     event.preventDefault();
+    tryJump();
+  }
+}
+
+// Function to attempt a jump
+function tryJump() {
+  if (canJump && !isJumping && !isFalling && isGameRunning) {
     jump();
+    canJump = false;
+    setTimeout(() => {
+      canJump = true;
+    }, jumpCooldown);
   }
 }
 
 // Function to handle character jump
 function jump() {
-  if (isJumping || !isGameRunning) return;
-
   isJumping = true;
+  isFalling = false;
   character.classList.add('jumping');
   playAudio(jumpSound);
   switchCharacterImage("url('./images/runner-jump.png')");
 
-  setTimeout(endJump, 300);
+  setTimeout(() => {
+    isJumping = false;
+    isFalling = true;
+    character.classList.remove('jumping');
+    character.classList.add('falling');
+  }, 300);
+
+  setTimeout(() => {
+    endJump();
+  }, 600); // Adjust this value if necessary to sync with CSS animation
 }
 
 // Function to end the jump
 function endJump() {
-  character.classList.remove('jumping');
-  isJumping = false;
+  character.classList.remove('jumping', 'falling');
+  isFalling = false;
 
   if (isGameRunning) {
     switchCharacterImage("url('./images/runner.gif')");
@@ -166,6 +198,7 @@ function endGame() {
   clearInterval(gameInterval);
   isGameRunning = false;
   isJumping = false;
+  isFalling = false;
   startButton.disabled = false;
 
   setTimeout(() => {
